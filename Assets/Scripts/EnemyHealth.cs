@@ -25,7 +25,7 @@ public class EnemyHealth : MonoBehaviour
             return;
         }
         HP -= damage;
-        Debug.Log("HP: " + HP.ToString());
+        //Debug.Log("HP: " + HP.ToString());
         GetComponent<EnemyAi>().StartDamageCooldown();
         anim.SetTrigger(string.Format("Take_Damage_{0}",Random.Range(1,3)));
         if (HP <= damage && alive) {
@@ -49,7 +49,7 @@ public class EnemyHealth : MonoBehaviour
 
     float RespawnCountdown() {
         float countDown = respawnSeconds - (Time.time - respawnCountdownStart);
-        Debug.Log(string.Format("Respawn countdown: {0}", countDown));
+        //Debug.Log(string.Format("Respawn countdown: {0}", countDown));
         return countDown;
     }
 

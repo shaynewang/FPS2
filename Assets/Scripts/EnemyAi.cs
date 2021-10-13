@@ -17,6 +17,8 @@ public class EnemyAi : MonoBehaviour
     // damage point the monter gives to the player per attack
     float damagePoint = 10f;
 
+    float turnSpeed = 5f;
+
     // Monster states
     bool isProvoked = false;
     bool attackState = false;
@@ -46,6 +48,11 @@ public class EnemyAi : MonoBehaviour
         anim.SetTrigger(attackMoves[at]);
     }
 
+    void ResetDamageCooldown() {
+        damageCooldownStart = 0;
+        anim.SetBool("DamageCooldown", false);
+    }
+
     public void StartDamageCooldown() {
         if (damageCooldownStart == 0) {
             damageCooldownStart = Time.time;
@@ -61,8 +68,7 @@ public class EnemyAi : MonoBehaviour
         }
         if (Time.time - damageCooldownStart >= damageCooldown) {
             navMeshAgent.isStopped = false;
-            damageCooldownStart = 0;
-            anim.SetBool("DamageCooldown", false);
+            ResetDamageCooldown();
             return false;
         }
         return true;
@@ -74,6 +80,7 @@ public class EnemyAi : MonoBehaviour
         isProvoked = false;
         isWalking = false;
         attackState = false;
+        ResetDamageCooldown();
     }
 
     // Update is called once per frame
@@ -122,7 +129,15 @@ public class EnemyAi : MonoBehaviour
         }
     }
 
+    void faceTarget()
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
+    }
+
     private void attackTarget() {
+        faceTarget();
         if (!attackState) {
             attackState = true;
             RandomAttack();
