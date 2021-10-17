@@ -237,6 +237,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
+            if (Mathf.Abs(Time.timeScale) < float.Epsilon) return;
+            float oldYRotation = transform.eulerAngles.y;
             m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
 

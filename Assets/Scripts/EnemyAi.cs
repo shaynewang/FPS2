@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyAi : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [SerializeField] float chaseRange = 15;
+    [SerializeField] float chaseRange = 5;
     NavMeshAgent navMeshAgent;
     float distanceToTarget = Mathf.Infinity;
     int ATTACKS = 3;
@@ -15,7 +15,7 @@ public class EnemyAi : MonoBehaviour
     float damageCooldownStart = 0;
     List<string> attackMoves;
     // damage point the monter gives to the player per attack
-    float damagePoint = 10f;
+    float damagePoint = 20f;
 
     float turnSpeed = 5f;
 

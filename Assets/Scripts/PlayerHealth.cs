@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
+        GetComponent<DeathHandler>().DisplayGameoverCanvas();
         Debug.Log("Game Over.");
     }
 
